@@ -1,0 +1,6 @@
+{
+  "backendAddress": "https://backend.producton.tookey.cloud/",
+  "keyFile": "./.tookey.key",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIs...yN8lrNjpy5E",
+  "participantsIndexes": [1,2]
+}

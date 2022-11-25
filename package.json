@@ -1,0 +1,54 @@
+{
+  "name": "@tookey-io/libtss-hardhat-plugin",
+  "version": "1.0.0",
+  "description": "Hardhat Signer plugin for Tookey service",
+  "repository": "github:tookey-io/libtss-hardhat-plugin",
+  "author": "Tookey IO",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "ethereum",
+    "smart-contracts",
+    "hardhat",
+    "hardhat-plugin",
+    "tookey-io"
+  ],
+  "scripts": {
+    "lint:fix": "prettier --write 'src/**/*.{js,ts}' && tslint --fix --config tslint.json --project tsconfig.json",
+    "lint": "tslint --config tslint.json --project tsconfig.json",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "@tookey-io/libtss": "1.0.5",
+    "bn.js": "^5.2.1",
+    "ethers": "^5.6.9",
+    "axios": "0.27.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/fs-extra": "^5.0.4",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^8.10.38",
+    "chai": "^4.2.0",
+    "hardhat": "^2.6.0",
+    "mocha": "^7.1.2",
+    "prettier": "2.0.5",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "4.0.3"
+  },
+  "peerDependencies": {
+    "hardhat": "^2.6.0"
+  }
+}
