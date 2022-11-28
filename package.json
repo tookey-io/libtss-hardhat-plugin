@@ -28,7 +28,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@tookey-io/libtss": "1.0.5",
+    "@tookey-io/libtss": "1.0.6",
     "bn.js": "^5.2.1",
     "ethers": "^5.6.9",
     "axios": "0.27.2"

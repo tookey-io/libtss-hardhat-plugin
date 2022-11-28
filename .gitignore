@@ -62,7 +62,8 @@ typings/
 # environment variables
 .env
 
-/.tookey*
-!/.tookey.json.example
+hardhat-example/.tookey*
+!hardhat-example/.tookey.json.example
+!hardhat-example/.tookey.key.example
 
 .idea

@@ -756,18 +756,85 @@
   dependencies:
     antlr4ts "^0.5.0-alpha.4"
 
-"@tookey-io/libtss-hardhat-plugin@./plugin":
-  version "1.1.0"
+"@tookey-io/libtss-android-arm-eabi@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-android-arm-eabi/-/libtss-android-arm-eabi-1.0.6.tgz#c2bf956778920e8af6312b0057911011fe499d4a"
+  integrity sha512-mJSC1BDY1OVcEFqA2ABNYIw55z7CMCSu+pMumMxw++HucRb/9XxpAfl50FSPA57zsRir5dqzQBMl9VQ63DLxRA==
+
+"@tookey-io/libtss-android-arm64@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-android-arm64/-/libtss-android-arm64-1.0.6.tgz#2d86476ce8cbaac8def1679f1fd2d9fae19e7e0b"
+  integrity sha512-wMn4OcGTWxkxheAUD9OcNNJT6rTfuajANjHTVr71cYifQoV0gwomLmJ4YXIASEF6PLr0xgF0IpF5N9yEScFnWA==
+
+"@tookey-io/libtss-darwin-arm64@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-darwin-arm64/-/libtss-darwin-arm64-1.0.6.tgz#7a0b8a80a4221426fccfae5caacc5d53262da124"
+  integrity sha512-jJPafjWoTYGT5Dpqa01XZYqWZzqaTBmx3HA9znoHSF+QbXzPb0v91Ae2Wa6VMGYpiOJEMQ+oBPGiknQu+Rd8YQ==
+
+"@tookey-io/libtss-darwin-x64@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-darwin-x64/-/libtss-darwin-x64-1.0.6.tgz#2e09ad6b0c144d330b457d8ee5ac72b020eceba4"
+  integrity sha512-tCCt5Zxoz7npfRtPuWFDXMZUrVxhm6SWcXiIaQuzS43cS+ZOsB9bDhZPhi+L9oDn/g0sYwAx0TpXwDte7IJgpw==
+
+"@tookey-io/libtss-freebsd-x64@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-freebsd-x64/-/libtss-freebsd-x64-1.0.6.tgz#02ee349ffc4582057d39a74c657a87b8b8a3e0e6"
+  integrity sha512-/VYGmtOZ1+H64eWodx4vp41LMSo/If4RvVQdsg5aKXVkS0u1xMa30Ln2Fq5Bk1euxbz/ZUibQ9l7A352VH37mw==
+
+"@tookey-io/libtss-hardhat-plugin@../":
+  version "1.0.0"
   dependencies:
-    "@tookey-io/libtss" "file:../libtss"
-    "@types/lodash" "^4.14.172"
-    asn1.js "^5.4.1"
+    "@tookey-io/libtss" "1.0.6"
     axios "0.27.2"
     bn.js "^5.2.1"
     ethers "^5.6.9"
 
-"@tookey-io/libtss@file:../libtss":
-  version "1.0.3"
+"@tookey-io/libtss-linux-arm-gnueabihf@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-linux-arm-gnueabihf/-/libtss-linux-arm-gnueabihf-1.0.6.tgz#b747047d22be53dab0695f3badb64bb4ce346eb3"
+  integrity sha512-6U5Ad5maVuvSJA0gGYCIbYn1Br6JKykdFlvREclpo4yL+Z9dB8lnxDDm5zSEnGZQzpdeqxGCd/4mzzTXz3lvow==
+
+"@tookey-io/libtss-linux-arm64-gnu@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-linux-arm64-gnu/-/libtss-linux-arm64-gnu-1.0.6.tgz#4e4563ae25d0d63b0ac3c5f7c4dc10fa47ee95a6"
+  integrity sha512-37ZyzsvzFd6N55OWN4gvDJ4C3M2DriZSoGbiNqWoZU0OYKmwAHx5AawXFpA9ktMoFMsXI4lNEoBf1Vp5aYvlTQ==
+
+"@tookey-io/libtss-linux-arm64-musl@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-linux-arm64-musl/-/libtss-linux-arm64-musl-1.0.6.tgz#1ac7641d59a983f5249612644c254a090d636762"
+  integrity sha512-y/XtUgVizsiuwu6qSoNbOm+d3OF0eTaO3lMnGLXF3DHz+xhotdobWs0YUAdX7hOG3AIU5r1xAbfIetvcg4l7vQ==
+
+"@tookey-io/libtss-linux-x64-gnu@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-linux-x64-gnu/-/libtss-linux-x64-gnu-1.0.6.tgz#3de32e796d1d7d5fc83b83ca3c94ecd917d7b358"
+  integrity sha512-v9VhrQstM1W01JazomSMnextui5IJTPhLgMlPClUWOPYaMWWTWQBopqLhZn3FwnckcG/Y2a+Q6zzEYAy+MEPgQ==
+
+"@tookey-io/libtss-linux-x64-musl@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-linux-x64-musl/-/libtss-linux-x64-musl-1.0.6.tgz#baf753766cc754b241ed98cf95a68227cbb2b311"
+  integrity sha512-xt0pbp7SdGWze2rJTC/L1/zUygF065Tlk8g5otEdJROXxf53l+sIw4f54BN/nZpKLOVmPfnC2f0k5gv3HQIClg==
+
+"@tookey-io/libtss-win32-x64-msvc@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss-win32-x64-msvc/-/libtss-win32-x64-msvc-1.0.6.tgz#09d3bde17c5de19ef23af74ac6ce4c7d834eb3b7"
+  integrity sha512-/mcSd8Fv4AQ2JRGtCO5MYQD3sKwF382pwx26Wr2CRRIyvMYy/hMrUPtPrMBrFJmEEogIyHGScR3QJ2+FfDCM6g==
+
+"@tookey-io/libtss@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tookey-io/libtss/-/libtss-1.0.6.tgz#a96fc89446dbfc0b4216ae67b947be361d1c9d73"
+  integrity sha512-//vzl0NZWL9TklhoQhmzZH2Y0MbzhMm4E+rTnnh4RGen6vhzcogUxZCWGMPoJBYAnzcOXFEygFHKUa/HFNDcAA==
+  optionalDependencies:
+    "@tookey-io/libtss-android-arm-eabi" "1.0.6"
+    "@tookey-io/libtss-android-arm64" "1.0.6"
+    "@tookey-io/libtss-darwin-arm64" "1.0.6"
+    "@tookey-io/libtss-darwin-x64" "1.0.6"
+    "@tookey-io/libtss-freebsd-x64" "1.0.6"
+    "@tookey-io/libtss-linux-arm-gnueabihf" "1.0.6"
+    "@tookey-io/libtss-linux-arm64-gnu" "1.0.6"
+    "@tookey-io/libtss-linux-arm64-musl" "1.0.6"
+    "@tookey-io/libtss-linux-x64-gnu" "1.0.6"
+    "@tookey-io/libtss-linux-x64-musl" "1.0.6"
+    "@tookey-io/libtss-win32-x64-msvc" "1.0.6"
 
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
@@ -856,11 +923,6 @@
   dependencies:
     "@types/minimatch" "*"
     "@types/node" "*"
-
-"@types/lodash@^4.14.172":
-  version "4.14.190"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.190.tgz#d8e99647af141c63902d0ca53cf2b34d2df33545"
-  integrity sha512-5iJ3FBJBvQHQ8sFhEhJfjUP+G+LalhavTkYyrAYqz5MEJG+erSv0k9KJLb6q7++17Lafk1scaTIFXcMJlwK8Mw==
 
 "@types/lru-cache@^5.1.0":
   version "5.1.1"
@@ -1128,16 +1190,6 @@ asap@~2.0.6:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==
 
-asn1.js@^5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/asn1.js/-/asn1.js-5.4.1.tgz#11a980b84ebb91781ce35b0fdc2ee294e3783f07"
-  integrity sha512-+I//4cYPccV8LdmBLiX8CYvf9Sp3vQsrqu2QNXRcrbiWvcx/UdlFiqUJJzxRQxgsZmvhXhn4cSKeSmoFjVdupA==
-  dependencies:
-    bn.js "^4.0.0"
-    inherits "^2.0.1"
-    minimalistic-assert "^1.0.0"
-    safer-buffer "^2.1.0"
-
 asn1@~0.2.3:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.6.tgz#0d3a7bb6e64e02a90c0303b31f292868ea09a08d"
@@ -1268,7 +1320,7 @@ bn.js@4.11.6:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.6.tgz#53344adb14617a13f6e8dd2ce28905d1c0ba3215"
   integrity sha512-XWwnNNFCuuSQ0m3r3C4LE3EiORltHd9M05pq6FOlVeiophzRbMo50Sbz1ehl8K3Z+jw9+vmgnXefY1hz8X+2wA==
 
-bn.js@^4.0.0, bn.js@^4.11.0, bn.js@^4.11.8, bn.js@^4.11.9:
+bn.js@^4.11.0, bn.js@^4.11.8, bn.js@^4.11.9:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.0.tgz#775b3f278efbb9718eec7361f483fb36fbbfea88"
   integrity sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==
