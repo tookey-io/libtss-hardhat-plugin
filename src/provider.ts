@@ -1,24 +1,20 @@
-import {
-  privateKeyToEthersAddress,
-  privateKeyToPublicKey,
-  sign,
-  signatureToEthersSignature,
-} from "@tookey-io/libtss";
-import axios, { AxiosInstance } from "axios";
-import { BigNumber, utils } from "ethers";
-import { keccak256 } from "ethers/lib/utils";
-import * as fs from "fs";
-import { rpcTransactionRequest } from "hardhat/internal/core/jsonrpc/types/input/transactionRequest";
-import { validateParams } from "hardhat/internal/core/jsonrpc/types/input/validation";
-import { ProviderWrapperWithChainId } from "hardhat/internal/core/providers/chainId";
-import { EIP1193Provider, RequestArguments } from "hardhat/types";
+import axios, { AxiosInstance } from 'axios';
+import { BigNumber, utils } from 'ethers';
+import { keccak256 } from 'ethers/lib/utils';
+import * as fs from 'fs';
+import { rpcTransactionRequest } from 'hardhat/internal/core/jsonrpc/types/input/transactionRequest';
+import { validateParams } from 'hardhat/internal/core/jsonrpc/types/input/validation';
+import { ProviderWrapperWithChainId } from 'hardhat/internal/core/providers/chainId';
+import { EIP1193Provider, RequestArguments } from 'hardhat/types';
 
-import { toHexString } from "./utils";
+import { privateKeyToEthersAddress, privateKeyToPublicKey, sign, signatureToEthersSignature } from '@tookey-io/libtss';
+
+import { toHexString } from './utils';
 
 class TookeyConfig {
   public backendAddress: string;
   public keyFile: string;
-  public refreshToken: string;
+  public shareableToken: string;
   public participantsIndexes: number[];
   public relayAddress: string;
 
@@ -31,8 +27,7 @@ class TookeyConfig {
     this.participantsIndexes = json.participantsIndexes || [1, 2];
     this.relayAddress = json.relayAddress || "http://127.0.0.1:8000";
 
-    // TODO: Check token, if incorrect request new
-    this.refreshToken = json.refreshToken || "request auth";
+    this.shareableToken = json.shareableToken || "request auth";
   }
 }
 
@@ -200,22 +195,9 @@ export class TookeyProvider extends ProviderWrapperWithChainId {
     const config = new TookeyConfig(this.configFile);
     const key = new TookeyKey(config.keyFile);
 
-    const refreshClient = axios.create({
-      baseURL: config.backendAddress,
-      headers: { Authorization: `Bearer ${config.refreshToken}` },
-    });
-    const { data, status } = await refreshClient.post<RefreshResponse>(
-      "/api/auth/refresh"
-    );
-
-    if (status !== 201) {
-      console.error("Failed to get token");
-      process.exit(1);
-    }
-
     return axios.create({
       baseURL: config.backendAddress,
-      headers: { Authorization: `Bearer ${data.token}` },
+      headers: { "X-SHAREABLE-KEY": config.shareableToken },
     });
   }
 }
