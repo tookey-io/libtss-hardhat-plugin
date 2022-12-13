@@ -1,6 +1,6 @@
 {
   "backendAddress": "https://backend.producton.tookey.cloud/",
   "keyFile": "./.tookey.key",
-  "refreshToken": "eyJhbGciOiJIUzI1NiIs...yN8lrNjpy5E",
+  "shareableToken": "9fe5f55868c01084...f2ed1b629b5e398c",
   "participantsIndexes": [1,2]
 }
