@@ -7,7 +7,7 @@ import { validateParams } from 'hardhat/internal/core/jsonrpc/types/input/valida
 import { ProviderWrapperWithChainId } from 'hardhat/internal/core/providers/chainId';
 import { EIP1193Provider, RequestArguments } from 'hardhat/types';
 
-import { privateKeyToEthersAddress, privateKeyToPublicKey, sign, signatureToEthersSignature } from '@tookey-io/libtss';
+import { privateKeyToEthereumAddress, privateKeyToPublicKey, sign, encodeMessageSignature } from '@tookey-io/libtss-ethereum';
 
 import { toHexString } from './utils';
 
@@ -47,7 +47,7 @@ class TookeyKey {
       process.exit(1);
     }
 
-    const addressResult = privateKeyToEthersAddress(this.privateKey);
+    const addressResult = privateKeyToEthereumAddress(this.privateKey);
     if (typeof addressResult.result === "string") {
       this.publicAddress = addressResult.result;
     } else {
@@ -122,14 +122,14 @@ export class TookeyProvider extends ProviderWrapperWithChainId {
           metadata: { source: "ethereum" },
         }
       );
-      if (status !== 201) {
-        console.error("Failed to start sign process");
+      if (status !== 200) {
+        console.error(`Failed to start sign process (${status})`, data);
         process.exit(1);
       }
 
       await new Promise((res) => setTimeout(res, 1000));
       console.log(`Starting sign in room ${data.roomId}`);
-      const result = await sign({
+      const signatureRecid = await sign({
         roomId: data.roomId,
         data: hash,
         participantsIndexes: config.participantsIndexes,
@@ -138,12 +138,12 @@ export class TookeyProvider extends ProviderWrapperWithChainId {
         relayAddress: config.relayAddress,
       });
 
-      if (typeof result.result === "string") {
-        console.log("Sign result: ", result.result);
-        const sig = signatureToEthersSignature(
-          result.result,
+      if (typeof signatureRecid.result === "string") {
+        console.log("Sign result: ", signatureRecid.result);
+        const sig = encodeMessageSignature(
           hash,
-          chainId || 0
+          chainId || 0,
+          signatureRecid.result
         );
         if (typeof sig.result === "undefined") {
           console.error("Failed to convert sign: ", sig.error);
@@ -158,7 +158,7 @@ export class TookeyProvider extends ProviderWrapperWithChainId {
           params: [rawTx],
         });
       } else {
-        console.error("Failed to finish sign process: ", result.error);
+        console.error("Failed to finish sign process: ", signatureRecid.error);
         process.exit(1);
       }
     } else if (
