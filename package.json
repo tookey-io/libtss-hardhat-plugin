@@ -1,6 +1,6 @@
 {
   "name": "@tookey-io/libtss-hardhat-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hardhat Signer plugin for Tookey service",
   "repository": "github:tookey-io/libtss-hardhat-plugin",
   "author": "Tookey IO",
