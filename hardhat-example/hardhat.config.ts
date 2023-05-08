@@ -7,9 +7,17 @@ const config: HardhatUserConfig = {
   defaultNetwork: "localhost",
   networks: {
     localhost: {
-      tookeyConfig: './.tookey.json'
-    }
-  }
+      url: 'http://localhost:8545',
+      tookeys: [
+        { filePath: "<KEY_PATH>" },
+      ],
+    },
+  },
+  tookey: {
+    backendUrl: "http://localhost:3001",
+    relayUrl: "http://localhost:8000",
+    apiKey: "<API_KEY>",
+  },
 };
 
 export default config;
