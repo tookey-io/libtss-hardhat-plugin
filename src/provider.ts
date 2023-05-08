@@ -78,6 +78,8 @@ export class TookeyProvider extends ChainIdValidatorProvider {
     });
 
     console.log(result)
+
+    return result
   }
 
   public async personal_sign(args: RequestArguments): Promise<unknown> {
