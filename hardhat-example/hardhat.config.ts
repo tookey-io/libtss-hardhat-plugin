@@ -8,9 +8,6 @@ const config: HardhatUserConfig = {
   networks: {
     localhost: {
       url: 'http://localhost:8545',
-      tookeys: [
-        { filePath: "<KEY_PATH>" },
-      ],
     },
   },
   tookey: {

@@ -13,7 +13,7 @@ import {
 import { AutomaticGasPriceProvider } from "./gasProvider";
 import { TookeyProvider } from "./provider";
 import "./type-extensions";
-import { AUTH_SIGNIN_TASK, KEYS_CREATE } from "./task-names";
+import { AUTH_SIGNIN_TASK, KEYS_CREATE, SIGNERS_TASKS } from "./task-names";
 import axios from "axios";
 import { DEFAULT_CONFIG } from "./constants";
 import { TookeyBackend } from "./backend";
@@ -40,7 +40,8 @@ extendConfig(
         userConfig.tookey?.backendUrl ||
         DEFAULT_CONFIG.backendUrl,
       apiKey: process.env.TOOKEY_API_KEY || userConfig.tookey?.apiKey,
-      disabled: Boolean(process.env.TOOKEY_DISABLED) || userConfig.tookey?.disabled, 
+      disabled:
+        Boolean(process.env.TOOKEY_DISABLED) || userConfig.tookey?.disabled,
       keys: [],
     };
 
@@ -74,6 +75,27 @@ extendConfig(
     }
   }
 );
+
+task(SIGNERS_TASKS).setAction(async (args, hre) => {
+  const signers: string[] = await hre.network.provider.send("eth_accounts", []);
+  const signersWithBalances = await Promise.all(
+    signers.map((address) =>
+      hre.network.provider
+        .send("eth_getBalance", [address])
+        .then((balance: string) => {
+          const big = BigInt(balance)
+          const floor = big / BigInt(1e18);
+          const decimals = big - floor;
+          return ({ address, balance: `${floor.toString(10)}.${decimals.toString(10)} ETH` })
+        })
+    )
+  );
+  console.log(
+    `Available signers: \n${signersWithBalances
+      .map(({ address, balance }) => `${address}: ${balance}`)
+      .join("\n")}`
+  );
+});
 
 task(KEYS_CREATE)
   .addParam(
@@ -114,23 +136,31 @@ task(KEYS_CREATE)
       const hotName = makeCertificateName("hot");
       const ownerName = makeCertificateName("owner");
 
+      const overrides = await Promise.all([
+        lstat(hotName)
+          .then(() => true)
+          .catch(() => false),
+        lstat(ownerName)
+          .then(() => true)
+          .catch(() => false),
+      ]);
+
+      if (overrides.some((o) => o)) {
+        console.log(`Key file already exist. Override is prohibidded`);
+        process.exit(1);
+      }
+
       const directory = resolve(process.cwd(), args.output);
 
-      console.log("output directory: " + directory);
-      console.log("output path: " + join(directory, hotName));
-
-      await writeFile(join(directory, hotName), "test");
-
       try {
-        const stat = await lstat(directory);
+        await lstat(directory);
       } catch {
         console.error(`Output directory doesnt exit (${directory})`);
+        process.exit(1);
       }
 
       const backend = new TookeyBackend(hre.config.tookey.backendUrl);
-      const tokens = await new TookeyBackend(
-        hre.config.tookey.backendUrl
-      ).signin(args.authToken);
+      const tokens = await backend.signin(args.authToken);
       backend.setAuthTokens(tokens);
 
       const tags = args.tags ? args.tags.split(",") : [];
@@ -147,7 +177,8 @@ task(KEYS_CREATE)
         timeout
       );
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const sleep = (ms: number) =>
+        new Promise((resolve) => setTimeout(resolve, ms));
 
       // export interface KeygenParams {
       //   roomId: string
@@ -165,12 +196,13 @@ task(KEYS_CREATE)
         relayAddress: hre.config.tookey.relayUrl,
         timeoutSeconds: timeout,
       });
+
       const [hot, owner] = await Promise.all([
-        keygen(paramFor(2)),
-        keygen(paramFor(3)),
+        sleep(1000).then(() => keygen(paramFor(2))),
+        sleep(1500).then(() => keygen(paramFor(3))),
       ]);
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       if (hot.key && owner.key) {
         const publicKeyResult = privateKeyToPublicKey(hot.key);
@@ -183,7 +215,9 @@ task(KEYS_CREATE)
             publicKeyResult.result,
           ]);
 
-          console.log(apikey);
+          console.log(
+            `Add the next token to the Hardhat configuration at tookey.apiKey or set it as an environment variable with TOOKEY_API_KEY: \n${apikey.token}`
+          );
         } else {
           console.error(publicKeyResult.error);
         }
@@ -195,15 +229,15 @@ task(KEYS_CREATE)
   );
 
 extendEnvironment((hre) => {
-  const httpNetConfig = hre.network.config as HttpNetworkConfig;
-  const tookeyConfig = httpNetConfig.tookey;
+  const netConfig = hre.network.config;
+  const tookeyConfig = netConfig.tookey;
 
-  if (!tookeyConfig.disabled) {
+  if (tookeyConfig && !tookeyConfig.disabled && "url" in netConfig) {
     const eip1193Provider = new HttpProvider(
-      httpNetConfig.url!,
+      netConfig.url,
       hre.network.name,
-      httpNetConfig.httpHeaders,
-      httpNetConfig.timeout
+      netConfig.httpHeaders,
+      netConfig.timeout
     );
     let wrappedProvider: EIP1193Provider;
 

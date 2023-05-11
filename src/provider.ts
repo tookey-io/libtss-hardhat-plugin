@@ -137,17 +137,17 @@ export class TookeyProvider extends ChainIdValidatorProvider {
     const client = await this.getClient();
     const { data } = await client.post<SignResponse>("/api/keys/sign", {
       publicKey: key.publicKey,
-      participantsConfirmations: [2, 1],
+      participantsConfirmations: [1, 2],
       data: hash,
       metadata: { source: "ethereum" },
     });
 
-    // await new Promise((res) => setTimeout(res, 1000));
+    await new Promise((res) => setTimeout(res, 1000));
     console.log(`Starting sign in room ${data.roomId}`);
     const result = await sign({
       roomId: data.roomId,
       data: hash,
-      participantsIndexes: [2, 1],
+      participantsIndexes: [1, 2],
       key: key.privateKey,
       timeoutSeconds: 10,
       relayAddress: this.config.relayUrl,
@@ -175,11 +175,9 @@ export class TookeyProvider extends ChainIdValidatorProvider {
   }
 
   public async request(args: RequestArguments): Promise<unknown> {
-    const method = args.method;
-    console.log("call", method, args);
     switch (args.method) {
       case "eth_sendTransaction":
-        this.eth_sendTransaction(args);
+        return this.eth_sendTransaction(args);
       case "eth_signTypedData_v4":
         return this.eth_signTypedData_v4(args);
       case "personal_sign":
