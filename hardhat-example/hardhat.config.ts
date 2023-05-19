@@ -1,6 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
-import "@tookey-io/libtss-hardhat-plugin";
+import "@tookey-io/hardhat";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.17",

@@ -9,7 +9,7 @@ It's assumed that you have Tookey account configured in `.tookey.json` file.
 In `hardhat.config.ts` append tookeyConfig to networks:
 
 ```
-import "@tookey-io/libtss-hardhat-plugin";
+import "@tookey-io/hardhat";
 
 ...
 
@@ -43,7 +43,7 @@ On less crowded networks (such as Sepolia) there may be situations where automat
 set minimal values for them in config:
 
 ```
-import "@tookey-io/libtss-hardhat-plugin";
+import "@tookey-io/hardhat";
 
 ...
 
